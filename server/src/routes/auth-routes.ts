@@ -28,10 +28,10 @@ export const login = async (req: Request, res: Response) => {
       { expiresIn: '1h' }
     );
 
-    res.json({ token });
+    return res.json({ token }); // Ensure a response is returned
   } catch (err) {
     console.error(err);
-    res.status(500).json({ message: 'Something went wrong' });
+    return res.status(500).json({ message: 'Something went wrong' }); // Add return here
   }
 };
 

@@ -9,7 +9,7 @@ interface JwtPayload {
   username: string;
 }
 
-export const authenticateToken = (req: Request, res: Response, next: NextFunction) => {
+export const authenticateToken = (req: Request, res: Response, next: NextFunction): Response | void => {
   const authHeader = req.headers['authorization'];
   const token = authHeader && authHeader.split(' ')[1]; // Format: "Bearer <token>"
 
@@ -22,8 +22,13 @@ export const authenticateToken = (req: Request, res: Response, next: NextFunctio
       return res.status(403).json({ message: 'Invalid token' });
     }
 
-    // Attach user info to request object
-    (req as any).user = decoded as JwtPayload;
-    next();
+    if (decoded) {
+      // Attach user info to request object
+      req.user = decoded as JwtPayload;
+      return next(); // Ensure next() is called on success
+    }
+
+    // Fallback in case decoded is undefined (shouldn't happen)
+    return res.status(500).json({ message: 'Token verification failed' });
   });
 };

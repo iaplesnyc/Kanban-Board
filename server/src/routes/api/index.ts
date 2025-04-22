@@ -1,7 +1,7 @@
 import { Router } from 'express';
 import { ticketRouter } from './ticket-routes.js';
 import { userRouter } from './user-routes.js';
-import { authenticateToken } from '../../middleware/auth';
+import { authenticateToken } from '../../middleware/auth.js'; // ✅ <-- .js added
 
 const router = Router();
 
