@@ -22,11 +22,13 @@ const Navbar = () => {
         <Link to="/">Krazy Kanban Board</Link>
       </div>
       <ul className="nav-links">
-        <li className="nav-item">
-          <Link to="/new-ticket">
-            <button type="button" disabled={!loginCheck}>New Ticket</button>
-          </Link>
-        </li>
+        {loginCheck && (
+          <li className="nav-item">
+            <Link to="/new-ticket">
+              <button type="button">New Ticket</button>
+            </Link>
+          </li>
+        )}
         {!loginCheck ? (
           <li className="nav-item">
             <Link to="/login">
