@@ -13,7 +13,7 @@ const CreateTicket = () => {
     description: '',
     status: 'Todo',
     assignedUserId: 1,
-    assignedUser: null
+    assignedUser: null,
   });
 
   const [users, setUsers] = useState<UserData[]>([]);
@@ -36,7 +36,9 @@ const CreateTicket = () => {
     }
   };
 
-  const handleChange = (e: ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
+  const handleChange = (
+    e: ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
+  ) => {
     const { name, value } = e.target;
     setNewTicket((prev) => (prev ? { ...prev, [name]: value } : prev));
   };
@@ -60,7 +62,7 @@ const CreateTicket = () => {
         <textarea
           id="tName"
           name="name"
-          value={newTicket.name}
+          value={newTicket.name ?? ''} {/* ✅ fix */}
           onChange={handleChange}
         />
 
@@ -68,7 +70,7 @@ const CreateTicket = () => {
         <select
           id="tStatus"
           name="status"
-          value={newTicket.status}
+          value={newTicket.status ?? 'Todo'} {/* ✅ fix */}
           onChange={handleChange}
         >
           <option value="Todo">Todo</option>
@@ -80,7 +82,7 @@ const CreateTicket = () => {
         <textarea
           id="tDescription"
           name="description"
-          value={newTicket.description}
+          value={newTicket.description ?? ''} {/* ✅ fix */}
           onChange={handleChange}
         />
 
@@ -88,7 +90,7 @@ const CreateTicket = () => {
         <select
           id="tUserId"
           name="assignedUserId"
-          value={String(newTicket.assignedUserId)}
+          value={newTicket.assignedUserId ? String(newTicket.assignedUserId) : ''}
           onChange={handleChange}
         >
           {users.length > 0 ? (
