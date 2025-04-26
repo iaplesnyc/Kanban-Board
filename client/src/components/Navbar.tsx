@@ -1,45 +1,46 @@
 import { useState, useEffect } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import auth from '../utils/auth';
 
 const Navbar = () => {
-  const [ loginCheck, setLoginCheck ] = useState(false);
-
-  const checkLogin = () => {
-    if(auth.loggedIn()) {
-      setLoginCheck(true);
-    }
-  };
+  const [loginCheck, setLoginCheck] = useState(false);
+  const navigate = useNavigate();
 
   useEffect(() => {
-    console.log(loginCheck);
-    checkLogin();
-  }, [loginCheck])
+    setLoginCheck(auth.loggedIn());
+  }, []);
+
+  const handleLogout = () => {
+    auth.logout();
+    setLoginCheck(false);
+    navigate('/login');
+  };
 
   return (
-    <div className='nav'>
-      <div className='nav-title'>
-        <Link to='/'>Krazy Kanban Board</Link>
+    <div className="nav">
+      <div className="nav-title">
+        <Link to="/">Krazy Kanban Board</Link>
       </div>
-      <ul>
-      {
-        !loginCheck ? (
-          <li className='nav-item'>
-            <button type='button'>
-              <Link to='/login'>Login</Link>
-            </button>
+      <ul className="nav-links">
+        <li className="nav-item">
+          <Link to="/new-ticket">
+            <button type="button" disabled={!loginCheck}>New Ticket</button>
+          </Link>
+        </li>
+        {!loginCheck ? (
+          <li className="nav-item">
+            <Link to="/login">
+              <button type="button">Login</button>
+            </Link>
           </li>
         ) : (
-          <li className='nav-item'>
-            <button type='button' onClick={() => {
-              auth.logout();
-            }}>Logout</button>
+          <li className="nav-item">
+            <button type="button" onClick={handleLogout}>Logout</button>
           </li>
-        )
-      }
+        )}
       </ul>
     </div>
-  )
-}
+  );
+};
 
 export default Navbar;
