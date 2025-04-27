@@ -1,4 +1,5 @@
 import { useState, FormEvent, ChangeEvent } from "react";
+import { useNavigate } from 'react-router-dom';
 import Auth from '../utils/auth';
 import { login } from "../api/authAPI";
 
@@ -7,6 +8,8 @@ const Login = () => {
     username: '',
     password: ''
   });
+
+  const navigate = useNavigate(); // <--- NEW
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -22,6 +25,7 @@ const Login = () => {
       const token = await login(loginData);
       if (token) {
         Auth.login(token);
+        navigate('/'); // <--- Redirect to Kanban board
       } else {
         alert('Login failed. Please check your credentials.');
       }
