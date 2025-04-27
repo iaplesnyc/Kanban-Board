@@ -1,4 +1,4 @@
-import sequelize from '../config/connection.js';
+import sequelize from '../config/connection.js';  // Make sure sequelize is imported
 import { UserFactory } from './user.js';
 import { TicketFactory } from './ticket.js';
 
@@ -15,4 +15,5 @@ Ticket.belongsTo(User, {
   as: 'assignedUser',
 });
 
-export { User, Ticket };
+// Ensure sequelize is exported along with User and Ticket
+export { sequelize, User, Ticket };
