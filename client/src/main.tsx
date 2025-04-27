@@ -1,4 +1,6 @@
-import ReactDOM from 'react-dom/client';
+// filepath: client/src/main.tsx
+
+import { createRoot } from 'react-dom/client';
 import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import './index.css';
 
@@ -18,7 +20,7 @@ const router = createBrowserRouter([
       {
         index: true,
         element: <Board />
-      }, 
+      },
       {
         path: '/edit',
         element: <EditTicket />
@@ -33,9 +35,9 @@ const router = createBrowserRouter([
       }
     ]
   }
-])
+]);
 
 const rootElement = document.getElementById('root');
 if (rootElement) {
-  ReactDOM.createRoot(rootElement).render(<RouterProvider router={router} />);
+  createRoot(rootElement).render(<RouterProvider router={router} />);
 }

@@ -1,3 +1,5 @@
+// filepath: client/src/pages/CreateTicket.tsx
+
 import { useState, useEffect, FormEvent, ChangeEvent } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { createTicket } from '../api/ticketAPI';
@@ -93,12 +95,12 @@ const CreateTicket = () => {
         <select
           id="tUserId"
           name="assignedUserId"
-          value={String(newTicket.assignedUserId)}
+          value={newTicket.assignedUserId?.toString() ?? ''}
           onChange={handleChange}
         >
           {users.length > 0 ? (
             users.map((user) => (
-              <option key={user.id} value={String(user.id)}>
+              <option key={user.id} value={user.id.toString()}>
                 {user.username}
               </option>
             ))
