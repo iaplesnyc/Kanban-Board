@@ -1,4 +1,4 @@
-import express from 'express';
+import { Router } from 'express';
 import {
   getAllTickets,
   getTicketById,
@@ -7,21 +7,10 @@ import {
   deleteTicket,
 } from '../../controllers/ticket-controller.js';
 
-const router = express.Router();
+export const ticketRouter = Router();
 
-// GET /tickets - Get all tickets
-router.get('/', getAllTickets);
-
-// GET /tickets/:id - Get a ticket by id
-router.get('/:id', getTicketById);
-
-// POST /tickets - Create a new ticket
-router.post('/', createTicket);
-
-// PUT /tickets/:id - Update a ticket by id
-router.put('/:id', updateTicket);
-
-// DELETE /tickets/:id - Delete a ticket by id
-router.delete('/:id', deleteTicket);
-
-export { router as ticketRouter };
+ticketRouter.get('/', getAllTickets);
+ticketRouter.get('/:id', getTicketById);
+ticketRouter.post('/', createTicket);
+ticketRouter.put('/:id', updateTicket);
+ticketRouter.delete('/:id', deleteTicket);

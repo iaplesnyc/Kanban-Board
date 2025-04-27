@@ -1,4 +1,4 @@
-import express from 'express';
+import { Router } from 'express';
 import {
   getAllUsers,
   getUserById,
@@ -7,21 +7,10 @@ import {
   deleteUser,
 } from '../../controllers/user-controller.js';
 
-const router = express.Router();
+export const userRouter = Router();
 
-// GET /users - Get all users
-router.get('/', getAllUsers);
-
-// GET /users/:id - Get a user by id
-router.get('/:id', getUserById);
-
-// POST /users - Create a new user
-router.post('/', createUser);
-
-// PUT /users/:id - Update a user by id
-router.put('/:id', updateUser);
-
-// DELETE /users/:id - Delete a user by id
-router.delete('/:id', deleteUser);
-
-export { router as userRouter };
+userRouter.get('/', getAllUsers);
+userRouter.get('/:id', getUserById);
+userRouter.post('/', createUser);
+userRouter.put('/:id', updateUser);
+userRouter.delete('/:id', deleteUser);
