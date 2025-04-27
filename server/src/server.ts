@@ -3,7 +3,7 @@ dotenv.config();
 
 import express from 'express';
 import routes from './routes/index.js';
-import sequelize from './config/connection.js';
+import { sequelize } from './models/index.js';  // This imports sequelize correctly from index.js
 import { User, Ticket } from './models/index.js';
 
 const app = express();
