@@ -82,6 +82,6 @@ The project features **secure authentication with JSON Web Tokens (JWT)**, **pro
 
 ## Deployment
 
-🔗 **Live Application**: (Add your Render deployment link here)
+🔗 **Live Application**: https://kanban-board-ifin.onrender.com
 
 ---

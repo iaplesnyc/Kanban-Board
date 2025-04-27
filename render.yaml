@@ -1,9 +1,11 @@
 services:
   - type: web
-    name: kanban-board
+    name: krazy-kanban
     env: node
-    branch: main
-    buildCommand: npm run render-build
-    startCommand: npm start
-    rootDir: .
     plan: free
+    buildCommand: npm run install:all && npm run build
+    startCommand: npm run start
+    rootDir: Develop
+    envVars:
+      - key: NODE_VERSION
+        value: 20
