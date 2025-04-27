@@ -21,7 +21,7 @@ const clientDistPath = path.resolve(__dirname, '../../client/dist');
 app.use(express.static(clientDistPath));
 
 // Fallback: serve index.html for any unmatched GET routes
-app.get('*', (req, res) => {
+app.get('*', (_req, res) => {
   res.sendFile(path.resolve(clientDistPath, 'index.html'));
 });
 
