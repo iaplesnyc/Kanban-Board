@@ -10,14 +10,14 @@ const sequelize = new Sequelize(
     host: process.env.DB_HOST!,
     port: Number(process.env.DB_PORT),
     dialect: 'postgres',
-    ...(isProduction && {
-      dialectOptions: {
-        ssl: {
-          require: true,
-          rejectUnauthorized: false,
-        },
-      },
-    }),
+    dialectOptions: isProduction
+      ? {
+          ssl: {
+            require: true,
+            rejectUnauthorized: false,
+          },
+        }
+      : {},
     pool: {
       max: 5,
       min: 0,
