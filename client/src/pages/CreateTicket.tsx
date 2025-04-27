@@ -62,7 +62,7 @@ const CreateTicket = () => {
         <textarea
           id="tName"
           name="name"
-          value={newTicket.name ?? ''} {/* ✅ fix */}
+          value={newTicket.name ? newTicket.name : ''}
           onChange={handleChange}
         />
 
@@ -70,7 +70,7 @@ const CreateTicket = () => {
         <select
           id="tStatus"
           name="status"
-          value={newTicket.status ?? 'Todo'} {/* ✅ fix */}
+          value={newTicket.status ? newTicket.status : ''}
           onChange={handleChange}
         >
           <option value="Todo">Todo</option>
@@ -82,7 +82,7 @@ const CreateTicket = () => {
         <textarea
           id="tDescription"
           name="description"
-          value={newTicket.description ?? ''} {/* ✅ fix */}
+          value={newTicket.description ? newTicket.description : ''}
           onChange={handleChange}
         />
 
