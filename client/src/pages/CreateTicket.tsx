@@ -40,7 +40,10 @@ const CreateTicket = () => {
     e: ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>
   ) => {
     const { name, value } = e.target;
-    setNewTicket((prev) => (prev ? { ...prev, [name]: value } : prev));
+    setNewTicket((prev) => ({
+      ...prev,
+      [name]: name === 'assignedUserId' ? Number(value) : value,
+    }));
   };
 
   const handleSubmit = async (e: FormEvent) => {
@@ -62,7 +65,7 @@ const CreateTicket = () => {
         <textarea
           id="tName"
           name="name"
-          value={newTicket.name ? newTicket.name : ''}
+          value={newTicket.name}
           onChange={handleChange}
         />
 
@@ -70,7 +73,7 @@ const CreateTicket = () => {
         <select
           id="tStatus"
           name="status"
-          value={newTicket.status ? newTicket.status : ''}
+          value={newTicket.status}
           onChange={handleChange}
         >
           <option value="Todo">Todo</option>
@@ -82,7 +85,7 @@ const CreateTicket = () => {
         <textarea
           id="tDescription"
           name="description"
-          value={newTicket.description ? newTicket.description : ''}
+          value={newTicket.description}
           onChange={handleChange}
         />
 
@@ -90,7 +93,7 @@ const CreateTicket = () => {
         <select
           id="tUserId"
           name="assignedUserId"
-          value={newTicket.assignedUserId ? String(newTicket.assignedUserId) : ''}
+          value={String(newTicket.assignedUserId)}
           onChange={handleChange}
         >
           {users.length > 0 ? (

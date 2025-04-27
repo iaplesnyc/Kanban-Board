@@ -1,4 +1,4 @@
-import { useState, FormEvent, ChangeEvent } from "react";
+import React, { useState, FormEvent, ChangeEvent } from "react";
 import Auth from '../utils/auth';
 import { login } from "../api/authAPI";
 
@@ -10,10 +10,10 @@ const Login = () => {
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
-    setLoginData({
-      ...loginData,
+    setLoginData((prev) => ({
+      ...prev,
       [name]: value
-    });
+    }));
   };
 
   const handleSubmit = async (e: FormEvent) => {
@@ -35,22 +35,27 @@ const Login = () => {
     <div className="login-container">
       <form className="login-form" onSubmit={handleSubmit}>
         <h1>Login</h1>
-        <label>Username</label>
+
+        <label htmlFor="username">Username</label>
         <input
+          id="username"
           type="text"
           name="username"
           value={loginData.username}
           onChange={handleChange}
           required
         />
-        <label>Password</label>
+
+        <label htmlFor="password">Password</label>
         <input
+          id="password"
           type="password"
           name="password"
           value={loginData.password}
           onChange={handleChange}
           required
         />
+
         <button type="submit">Login</button>
       </form>
     </div>
