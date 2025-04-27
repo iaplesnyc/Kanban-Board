@@ -10,20 +10,26 @@ import sequelize from './config/connection';
 const app = express();
 const PORT = process.env.PORT || 3001;
 
-// Middleware to serve static files correctly
-app.use(express.static(path.resolve(__dirname, '../../client/dist')));
-
 // Middleware for parsing JSON
 app.use(express.json());
 
 // API Routes
-app.use(routes);
+app.use('/api', routes);
+
+// Serve static files from client build
+const clientDistPath = path.resolve(__dirname, '../../client/dist');
+app.use(express.static(clientDistPath));
+
+// Fallback: serve index.html for any unmatched GET routes
+app.get('*', (req, res) => {
+  res.sendFile(path.resolve(clientDistPath, 'index.html'));
+});
 
 const forceDatabaseRefresh = false;
 
 const startServer = async () => {
   try {
-    await sequelize.authenticate(); // <- Optional: test db connection first
+    await sequelize.authenticate();
     console.log('✅ Database connection established successfully.');
 
     await sequelize.sync({ force: forceDatabaseRefresh });
