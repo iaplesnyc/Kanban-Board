@@ -1,5 +1,7 @@
 import { Sequelize } from 'sequelize';
 
+const isProduction = process.env.NODE_ENV === 'production';
+
 const sequelize = new Sequelize(
   process.env.DB_NAME!,
   process.env.DB_USER!,
@@ -8,19 +10,21 @@ const sequelize = new Sequelize(
     host: process.env.DB_HOST!,
     port: Number(process.env.DB_PORT),
     dialect: 'postgres',
-    dialectOptions: {
-      ssl: {
-        require: true,
-        rejectUnauthorized: false,
+    ...(isProduction && {
+      dialectOptions: {
+        ssl: {
+          require: true,
+          rejectUnauthorized: false,
+        },
       },
-    },
+    }),
     pool: {
-      max: 5,          // maximum number of connection in pool
-      min: 0,          // minimum number of connection in pool
-      acquire: 30000,  // maximum time (ms) pool will try to get connection before throwing error
-      idle: 10000      // maximum time (ms) a connection can be idle before being released
+      max: 5,
+      min: 0,
+      acquire: 30000,
+      idle: 10000,
     },
-    logging: false     // optional: set to true if you want SQL logs
+    logging: false,
   }
 );
 
