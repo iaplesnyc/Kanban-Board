@@ -2,7 +2,7 @@ import { UserLogin } from "../interfaces/UserLogin";
 
 const login = async (userInfo: UserLogin): Promise<string | null> => {
   try {
-    const response = await fetch('/auth/login', {   // <-- changed from /api/login to /auth/login
+    const response = await fetch('/api/auth/login', {  // <-- corrected endpoint
       method: 'POST',
       headers: {
         'Content-Type': 'application/json'
