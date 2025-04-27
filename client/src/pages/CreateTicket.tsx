@@ -67,7 +67,7 @@ const CreateTicket = () => {
         <textarea
           id="tName"
           name="name"
-          value={newTicket.name}
+          value={newTicket.name || ''} // Fallback to an empty string
           onChange={handleChange}
         />
 
@@ -75,7 +75,7 @@ const CreateTicket = () => {
         <select
           id="tStatus"
           name="status"
-          value={newTicket.status}
+          value={newTicket.status || ''} // Fallback to an empty string
           onChange={handleChange}
         >
           <option value="Todo">Todo</option>
@@ -87,7 +87,7 @@ const CreateTicket = () => {
         <textarea
           id="tDescription"
           name="description"
-          value={newTicket.description}
+          value={newTicket.description || ''} // Fallback to an empty string
           onChange={handleChange}
         />
 
@@ -95,15 +95,17 @@ const CreateTicket = () => {
         <select
           id="tUserId"
           name="assignedUserId"
-          value={newTicket.assignedUserId?.toString() ?? ''}
+          value={newTicket.assignedUserId?.toString() || ''} // Convert to string and fallback to empty
           onChange={handleChange}
         >
           {users.length > 0 ? (
-            users.map((user) => (
-              <option key={user.id} value={user.id.toString()}>
-                {user.username}
-              </option>
-            ))
+            users
+              .filter((user) => user.id !== null) // Filter out null IDs
+              .map((user) => (
+                <option key={user.id} value={user.id?.toString()}>
+                  {user.username}
+                </option>
+              ))
           ) : (
             <option value="">No users available</option>
           )}
