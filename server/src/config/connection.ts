@@ -1,38 +1,28 @@
-import { Sequelize, Options } from 'sequelize';
+import { Sequelize } from 'sequelize';
+import dotenv from 'dotenv';
 
-// Check if the environment is production
+dotenv.config();
+
 const isProduction = process.env.NODE_ENV === 'production';
 
-// Database connection options
-const options: Options = {
-  host: process.env.DB_HOST || 'localhost',
-  port: process.env.DB_PORT ? Number(process.env.DB_PORT) : 5432,
-  dialect: 'postgres',
-  pool: {
-    max: 5,
-    min: 0,
-    acquire: 30000,
-    idle: 10000,
-  },
-  logging: false,
-};
-
-// Enable SSL only in production
-if (isProduction) {
-  options.dialectOptions = {
-    ssl: {
-      require: true,
-      rejectUnauthorized: false,
-    },
-  };
-}
-
-// Create the Sequelize instance
 const sequelize = new Sequelize(
-  process.env.DB_NAME || '',
-  process.env.DB_USER || '',
-  process.env.DB_PASSWORD || '',
-  options
+  process.env.DB_NAME as string,
+  process.env.DB_USER as string,
+  process.env.DB_PASSWORD as string,
+  {
+    host: process.env.DB_HOST,
+    port: Number(process.env.DB_PORT) || 5432,
+    dialect: 'postgres',
+    logging: false, // Disable logging; set to true for debugging
+    dialectOptions: isProduction
+      ? {
+          ssl: {
+            require: true,
+            rejectUnauthorized: false, // Allow self-signed certificates
+          },
+        }
+      : {},
+  }
 );
 
 export default sequelize;
