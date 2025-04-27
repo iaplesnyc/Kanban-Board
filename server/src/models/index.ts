@@ -15,4 +15,4 @@ Ticket.belongsTo(User, {
   as: 'assignedUser',
 });
 
-export { sequelize, User, Ticket };
+export { User, Ticket };
