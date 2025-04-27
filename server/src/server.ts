@@ -2,7 +2,7 @@ import dotenv from 'dotenv';
 dotenv.config();
 
 import path from 'path';
-import express from 'express';
+import express, { Request, Response } from 'express';
 
 import routes from './routes/index';
 import sequelize from './config/connection';
@@ -21,7 +21,7 @@ const clientDistPath = path.resolve(__dirname, '../../client/dist');
 app.use(express.static(clientDistPath));
 
 // Fallback: serve index.html for any unmatched GET routes
-app.get('*', (_req, res) => {
+app.get('*', (_req: Request, res: Response) => {
   res.sendFile(path.resolve(clientDistPath, 'index.html'));
 });
 
