@@ -1,0 +1,9 @@
+services:
+  - type: web
+    name: kanban-board
+    env: node
+    branch: main
+    buildCommand: npm run render-build
+    startCommand: npm start
+    rootDir: .
+    plan: free
